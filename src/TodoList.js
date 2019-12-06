@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Button,Input,List} from 'antd'
-import 'antd/dist/antd.css';
+import {Button,Input,List,} from 'antd'
 import store from './Store'
+import {changeInput,addItem,rmItem,getApi} from './Store/actionCreater'
+import axios from 'axios'
 
 class TodoList extends Component {
     constructor(props) {
@@ -10,32 +11,38 @@ class TodoList extends Component {
         store.subscribe(()=>this.storeChange());
     }
 
+    componentDidMount(){
+        console.log(111111);
+        // async function getData(){
+        //     try{
+        //         const data = await axios.get('https://www.v2ex.com/api/topics/latest.json');
+        //         console.log(data);
+        //     } catch(error){
+        //         console.log(error);
+        //     }
+        // }
+        // getData()
+        axios.get('/api/data/profile').then((res)=>{
+            console.log(res);
+            store.dispatch(getApi(res.data));
+        })
+
+    }
+
     storeChange(){
         this.setState(store.getState)
     }
 
     InputValChange = (e)=>{
-        // console.log(e.target.value);
-        const action = {
-            type:'ChangeInput',
-            value:e.target.value
-        }
-        store.dispatch(action);
+        store.dispatch(changeInput(e.target.value));
     }
 
     addItem(){
-        const action = {
-            type:'addItem',
-        }
-        store.dispatch(action);
+        store.dispatch(addItem());
     }
 
     rmItem(index){
-        const action = {
-            type:'rmItem',
-            index
-        }
-        store.dispatch(action);
+        store.dispatch(rmItem(index));
     }
 
     render() { 
