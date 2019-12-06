@@ -22,8 +22,7 @@ export default (state=defaultState,action)=>{
             return newStateVal1
         case GET_API:
             let newStateVal2 = JSON.parse(JSON.stringify(state)) 
-            console.log(action);
-            newStateVal2.list = action.data;
+            newStateVal2.list = action.data.data;
             return newStateVal2    
         default: return state    
     }

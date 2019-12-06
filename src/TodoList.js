@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Button,Input,List,} from 'antd'
 import store from './Store'
-import {changeInput,addItem,rmItem,getApi} from './Store/actionCreater'
-import axios from 'axios'
+import {changeInput,addItem,rmItem,getApi,getDataFromUrl} from './Store/actionCreater'
+
 
 class TodoList extends Component {
     constructor(props) {
@@ -22,10 +22,12 @@ class TodoList extends Component {
         //     }
         // }
         // getData()
-        axios.get('/api/data/profile').then((res)=>{
-            console.log(res);
-            store.dispatch(getApi(res.data));
-        })
+        // axios.get('/api/data/profile').then((res)=>{
+        //     console.log(res);
+        //     store.dispatch(getApi(res.data));
+        // })
+        const getdata =  getDataFromUrl();
+        store.dispatch(getdata);
 
     }
 

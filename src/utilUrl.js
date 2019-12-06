@@ -1,0 +1,1 @@
+export const getDataUrl = '/api/data/profile'
